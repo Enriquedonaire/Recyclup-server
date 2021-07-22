@@ -22,6 +22,9 @@ app.use("/api", allRoutes);
 const itemRoutes = require('./routes/items.routes');
 app.use('/api', itemRoutes);
 
+const authRoutes = require("./routes/auth.routes");
+app.use("/api", authRoutes);
+
 //ALL SERVER SIDE ROUTES START WIRT/API
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
