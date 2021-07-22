@@ -1,7 +1,9 @@
-const express = require('express')
 const router = express.Router()
-const bcrypt = require('bcryptjs');  
 const UserModel = require('../models/User.model');
+
+//Libraries:
+const express = require('express')
+const bcrypt = require('bcryptjs');  
 const randomstring = require("randomstring"); //this is a library for the confirmation mail
 const nodemailer = require("nodemailer");  //this one is also for the confirmation mail
 const session = require('express-session')  //library to store the user's session
@@ -56,7 +58,7 @@ router.post('/signup', (req, res) => {
     });
     
 
-   // salting and hashing the entered password 
+   // salting and hashing the entered password
     let securePW = bcrypt.hashSync(password, salt);
     UserModel.create({username, email, password: securePW})
       .then((user) => {
@@ -93,9 +95,9 @@ let transporter = nodemailer.createTransport({
 });
 transporter
   .sendMail({
-    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',
+    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',  //still need to create an email 
     to: email,
-    subject: "Welcome to MOODS- Please confirm your account",
+    subject: "Welcome to Upcyclup- Please confirm your account",
     text: message,
     html: `<b>${message}</b>`,
   })
@@ -127,6 +129,8 @@ router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
 //________________________________________________________________________________________________________
 
 
+
+
 //___________SIGNIN_________________
 // will handle all POST requests to http:localhost:5005/api/signin
 router.post('/signin', (req, res) => {
@@ -138,8 +142,8 @@ router.post('/signin', (req, res) => {
        })
       return;  
     }
-    const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-    if (!myRegex.test(email)) {
+   
+    if (!mailRegex.test(email)) {
         res.status(500).json({
             error: 'Email format not correct',
         })
@@ -150,13 +154,22 @@ router.post('/signin', (req, res) => {
     // checks if the user exists in the database 
     UserModel.findOne({email})
       .then((userData) => {
+
+        if(user.status !=='Active'){
+            res.render("index", {error: 'Please confirm your account first'})   //
+            return 
+        }
+
+
            //check if passwords match
+
+           if(user)
           bcrypt.compare(password, userData.securePW)
             .then((doesItMatch) => {
                 //if it matches
                 if (doesItMatch) {
                   // req.session is the special object that is available to you
-                  userData.passwordHash = "***";
+                  userData.securePW = "***";
                   req.session.loggedInUser = userData;
                   res.status(200).json(userData)
                 }
@@ -186,6 +199,7 @@ router.post('/signin', (req, res) => {
   
 });
  
+//____________LOGOUT_________________
 // will handle all POST requests to http:localhost:5005/api/logout
 router.post('/logout', (req, res) => {
     req.session.destroy();
@@ -201,7 +215,6 @@ const isLoggedIn = (req, res, next) => {
           code: 401,
       })
   };
-
 
 
 // THIS IS A PROTECTED ROUTE

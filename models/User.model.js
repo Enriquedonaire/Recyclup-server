@@ -12,12 +12,15 @@ const userSchema = new Schema({
     required: true
   },
   email: {
-    type: String   //is this just a string?
+    type: String, //is this just a string?
+    unique: true
   },
   status: {
     enum: ["Active", "Pending confirmation"],
     default:  "Pending confirmation"
-  }
+  },
+
+  confirmationCode: String
 
 });
 
