@@ -5,7 +5,7 @@ let ItemModel = require('../models/Item.model')
 
 // NOTE: All your API routes will start from /api 
 
-// will handle all GET requests to http:localhost:5005/api/items
+// will handle all GET requests to http:localhost:5005/api/items.
 router.get('/items', (req, res) => {
      ItemModel.find()
           .then((items) => {
@@ -22,9 +22,9 @@ router.get('/items', (req, res) => {
 // will handle all POST requests to http:localhost:5005/api/create
 
 router.post('/create', (req, res) => {  
-    const {name, description, completed} = req.body;
+    const {name, description, available, image} = req.body;
     console.log(req.body)
-    ItemModel.create({name: name, description: description, completed: completed})
+    ItemModel.create({name: name, description: description, available: false, image: image})
           .then((response) => {
                res.status(200).json(response)
           })
