@@ -19,8 +19,8 @@ require("./config")(app);
 const allRoutes = require("./routes");
 app.use("/api", allRoutes);
 
-const itemsRoutes = require('./routes/items.routes');
-app.use('/api', itemsRoutes);
+const itemRoutes = require('./routes/items.routes');
+app.use('/api', itemRoutes);
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/api", authRoutes);

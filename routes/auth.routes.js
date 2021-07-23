@@ -40,7 +40,7 @@ router.post('/signup', (req, res) => {
       });
       return;  
     }
-
+      let securePW = bcrypt.hashSync(password, salt)
     //check if username is unique
     UserModel.findOne({username})
     .then((username) => {
