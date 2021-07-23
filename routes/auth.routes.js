@@ -36,7 +36,7 @@ router.post('/signup', (req, res) => {
   
     if (!passRegex.test(password)) {
       res.status(500).json({
-        errorMessage: 'Your password needs to have at least 9 characters, a number and an Uppercase letter.'
+        errorMessage: 'Your password needs to have at least 9 characters, a number and an uppercase letter.'
       });
       return;  
     }
@@ -87,14 +87,14 @@ const message = `Dear new community member, this is to confirm your RecyclUp acc
 let transporter = nodemailer.createTransport({
   service: "Gmail",                       //we can change this
   auth: {
-    user: process.env.NM_USER,          //create the .env file with this data
+    user: process.env.NM_USER,          
     pass: process.env.NM_PASSWORD, 
   },
 });
 
 transporter
   .sendMail({
-    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',  //still need to create an email 
+    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',  //still need to create an email account
     to: email,
     subject: "Welcome to Upcyclup- Please confirm your account",
     text: message,
