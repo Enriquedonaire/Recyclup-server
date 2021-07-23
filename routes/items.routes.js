@@ -1,7 +1,6 @@
 const express = require('express')            //CHANGE THIS TO ITEM-ROUTES!!
 const router = express.Router()
-
-let ItemModel = require('../models/Item.model')
+const ItemModel = require('../models/Items.model')
 
 // NOTE: All your API routes will start from /api 
 

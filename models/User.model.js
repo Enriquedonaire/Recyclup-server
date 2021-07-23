@@ -15,9 +15,11 @@ const userSchema = new Schema({
     type: String, //is this just a string?
     unique: true
   },
+
   status: {
     enum: ["Active", "Pending confirmation"],
-    default:  "Pending confirmation"
+    default:  "Pending confirmation",
+    type: String
   },
 
   confirmationCode: String
