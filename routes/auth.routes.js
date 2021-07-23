@@ -17,7 +17,7 @@ router.post('/signup', (req, res) => {
     const passRegex =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{9,}$/;
     const salt = bcrypt.genSaltSync(12) 
     const securePW = bcrypt.hashSync(password, salt)
- 
+
     // Checking if signin form is fully filled in
     if (!username || !email || !password) {
         res.status(500)
@@ -40,7 +40,7 @@ router.post('/signup', (req, res) => {
       });
       return;  
     }
-
+      let securePW = bcrypt.hashSync(password, salt)
     //check if username is unique
     UserModel.findOne({username})
     .then((username) => {
@@ -137,7 +137,7 @@ router.post('/signin', (req, res) => {
     if ( !username || !password) {
         res.status(500).json({
             error: 'Please enter your username and password.',
-       })
+  })
       return;  
     }
    
