@@ -1,14 +1,14 @@
+//Libraries:
 const express = require('express')
-const router = express.Router()
 const bcrypt = require('bcryptjs');  
-const UserModel = require('../models/User.model');
 const randomstring = require("randomstring"); //this is a library for the confirmation mail
 const nodemailer = require("nodemailer");  //this one is also for the confirmation mail
 const session = require('express-session')  //library to store the user's session
 const MongoStore = require('connect-mongo');
 const axios = require('axios');
 
-
+const router = express.Router()
+const UserModel = require('../models/User.model');
 
 //_______SIGNUP______________________________________________
 router.post('/signup', (req, res) => {
@@ -56,8 +56,7 @@ router.post('/signup', (req, res) => {
     });
     
 
-   // salting and hashing the entered password 
-    
+   // salting and hashing the entered password
     UserModel.create({username, email, password: securePW})
       .then((user) => {
         // to not even share hash password with user:
@@ -79,10 +78,11 @@ router.post('/signup', (req, res) => {
         }
       })
 });
-
+ 
+/*
 //route to send confirmation mail when signup posted
 const confirmationCode = randomstring.generate(20); 
-const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: https://recyclup.herokuapp.com/auth/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
+const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: http://localhost:3000/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
 // let { email, username } = req.body;
 let transporter = nodemailer.createTransport({
   service: "Gmail",                       //we can change this
@@ -91,18 +91,19 @@ let transporter = nodemailer.createTransport({
     pass: process.env.NM_PASSWORD, 
   },
 });
+
 transporter
   .sendMail({
-    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',
+    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',  //still need to create an email 
     to: email,
-    subject: "Welcome to MOODS- Please confirm your account",
+    subject: "Welcome to Upcyclup- Please confirm your account",
     text: message,
     html: `<b>${message}</b>`,
   })
 .then(() => {
 UserModel.create({ username, email, password: securePW, confirmationCode, status: "Pending confirmation"})
   .then(() => {
-    res.redirect("/");            //IS THIS RIGHT FOR SERVER SIDE?
+    res.status(204).json({message:"Thanks for signing up. We sent you an email to confirm your account." })
   })
 
   .catch((err) => {
@@ -110,21 +111,22 @@ UserModel.create({ username, email, password: securePW, confirmationCode, status
       errorMessage: "Sorry, something went wrong. Please sign up again."
     });
   });
-});
+});  
 
 router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
     UserModel.findOneAndUpdate({confirmationCode: req.params.confirmationCode}, {status: 'Active'})
       .then(()=> {
-        res.redirect('/')   //IS THIS RIGHT FOR SERVER SIDE?
+        res.json({})     //have to create corresponding client side route 
       })
       .catch((err)=> {
-        next(err)
-      })
+        res.status(500).json({error: "Something went wrong, please sign up again."})
   
-    })
+    })  */
 
 
 //________________________________________________________________________________________________________
+
+
 
 
 //___________SIGNIN_________________
@@ -138,8 +140,8 @@ router.post('/signin', (req, res) => {
   })
       return;  
     }
-    const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-    if (!myRegex.test(email)) {
+   
+    if (!mailRegex.test(email)) {
         res.status(500).json({
             error: 'Email format not correct',
         })
@@ -150,13 +152,22 @@ router.post('/signin', (req, res) => {
     // checks if the user exists in the database 
     UserModel.findOne({email})
       .then((userData) => {
+
+        if(user.status !=='Active'){
+            res.render("index", {error: 'Please confirm your account first'})   
+            return 
+        }
+
+
            //check if passwords match
+
+           if(user)
           bcrypt.compare(password, userData.securePW)
             .then((doesItMatch) => {
                 //if it matches
                 if (doesItMatch) {
                   // req.session is the special object that is available to you
-                  userData.passwordHash = "***";
+                  userData.securePW = "***";
                   req.session.loggedInUser = userData;
                   res.status(200).json(userData)
                 }
@@ -185,7 +196,8 @@ router.post('/signin', (req, res) => {
       });
   
 });
-
+ 
+//____________LOGOUT_________________
 // will handle all POST requests to http:localhost:5005/api/logout
 router.post('/logout', (req, res) => {
     req.session.destroy();
@@ -201,7 +213,6 @@ const isLoggedIn = (req, res, next) => {
           code: 401,
       })
   };
-
 
 
 // THIS IS A PROTECTED ROUTE
