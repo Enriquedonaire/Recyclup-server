@@ -8,7 +8,7 @@ const ItemModel = require('../models/Items.model')
 router.get('/items', (req, res) => {
      ItemModel.find()
           .then((items) => {
-               res.status(200).json(items)    //instead of render('someHbs'), since we dont have views here to render
+               res.status(200).json(items)    
           })
           .catch((err) => {
                res.status(500).json({
