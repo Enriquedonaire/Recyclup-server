@@ -12,6 +12,6 @@ const ItemSchema = new Schema({
   image: {type: String}
 });
 
-const Item = model("Item", ItemSchema);
+const Item = model(Item, ItemSchema);
 
 module.exports = Item;

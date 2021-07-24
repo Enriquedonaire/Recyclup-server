@@ -40,10 +40,7 @@ router.post('/signup', (req, res) => {
       });
       return;  
     }
-<<<<<<< HEAD
     
-=======
->>>>>>> 4d57c8e73ce8185cfffe742898ad6ee8195d9b6f
     //check if username is unique
     UserModel.findOne({username})
     .then((username) => {
