@@ -2,14 +2,22 @@ const { Schema, model } = require("mongoose");
 
 
 const ItemSchema = new Schema({
-  username: {
+  user: {
     type: String,
     unique: true
   },
-  name: {type : String},
-  description: {type: String},
-  available: {default: true},
-  image: {type: String}
+    name: {
+      type : String,
+    },
+    description: {
+      type: String
+    },
+    available: {
+      type: String,
+      default: true
+  },
+  image: {
+    type: String}
 });
 
 const Item = model("Item", ItemSchema);
