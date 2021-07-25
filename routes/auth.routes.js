@@ -79,13 +79,13 @@ router.post('/signup', (req, res) => {
       })
 });
  
-/*
+
 //route to send confirmation mail when signup posted
 const confirmationCode = randomstring.generate(20); 
 const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: http://localhost:3000/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
 // let { email, username } = req.body;
 let transporter = nodemailer.createTransport({
-  service: "Gmail",                       //we can change this
+  service: "Gmail",                       
   auth: {
     user: process.env.NM_USER,          
     pass: process.env.NM_PASSWORD, 
@@ -94,9 +94,9 @@ let transporter = nodemailer.createTransport({
 
 transporter
   .sendMail({
-    //from: '"Upcyclup" <hello.team.upcyclup@gmail.com>',  //still need to create an email account
-    to: email,
-    subject: "Welcome to Upcyclup- Please confirm your account",
+    //from: '"Upcyclup" <hello.recyclup@gmail.com>',  
+    to: email,                                              //user email
+    subject: "Welcome to Recyclup- Please confirm your account",
     text: message,
     html: `<b>${message}</b>`,
   })
@@ -121,7 +121,7 @@ router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
       .catch((err)=> {
         res.status(500).json({error: "Something went wrong, please sign up again."})
   
-    })  */
+    })  
 
 
 //________________________________________________________________________________________________________
