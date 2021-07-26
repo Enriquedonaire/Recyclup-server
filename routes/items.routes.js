@@ -23,7 +23,8 @@ router.get('/items', (req, res) => {
 router.post('/create', (req, res) => {  
      const {username, name, description, available, image} = req.body;
      console.log(req.body)
-     ItemModel.create({username: username, name: name, description: description, available: false, image: image})
+     let id = req.session.loggedInUser._id
+     ItemModel.create({username: username, name: name, description: description, available: false, image: image, userId:id })
           .then((response) => {
                res.status(200).json(response)
           })
