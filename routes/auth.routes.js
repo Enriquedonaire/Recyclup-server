@@ -91,7 +91,7 @@ UserModel.findOne({username})
 //confirmation mail when signup posted
 const confirmationCode = randomstring.generate(20); 
 const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: http://localhost:3000/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
-// let { email, username } = req.body;
+let { email, username } = req.body;
 let transporter = nodemailer.createTransport({
   service: "Gmail",                       
   auth: {
@@ -102,8 +102,8 @@ let transporter = nodemailer.createTransport({
 
 transporter
   .sendMail({
-    //from: '"Upcyclup" <hello.recyclup@gmail.com>',  
-    to: email,                                              //user email
+    from: '"Upcyclup" <hello.recyclup@gmail.com>',  
+    to: email,                                              
     subject: "Welcome to Recyclup- Please confirm your account",
     text: message,
     html: `<b>${message}</b>`,
