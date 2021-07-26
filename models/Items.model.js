@@ -2,10 +2,9 @@ const { Schema, model } = require("mongoose");
 
 
 const ItemSchema = new Schema({
-  user: {
-    type: String,
-    unique: true
-  },
+    username: {
+      type: String,
+    },
     name: {
       type : String,
     },
@@ -14,7 +13,7 @@ const ItemSchema = new Schema({
     },
     available: {
       type: String,
-      default: true
+      default: false
   },
   image: {
     type: String}

@@ -7,13 +7,13 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/User.model');
 
 router.post('/signup', (req, res) => {
-    const {username, email, password } = req.body;
-    console.log(username, email, password);
+    const {name, email, password } = req.body;
+    console.log(name, email, password);
     
 
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(password, salt);
-        UserModel.create({name: username, email, passwordHash: hash})
+        UserModel.create({username: name, email: email, passwordHash: hash})
         .then((user) => {
             
             user.passwordHash = "***";
