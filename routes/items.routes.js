@@ -18,12 +18,12 @@ router.get('/items', (req, res) => {
           })         
 })
 
-// will handle all POST requests to http:localhost:5005/api/create
+// will handle all POST requests to http:localhost:5005/api/create CHECKOUT
 
 router.post('/create', (req, res) => {  
      const {username, name, description, available, image} = req.body;
      console.log(req.body)
-     ItemModel.create({username: username, name: name, description: description, available: false, image: image})
+     ItemModel.create({username: username, name: name, description: description, available: available, image: image})
           .then((response) => {
                res.status(200).json(response)
           })

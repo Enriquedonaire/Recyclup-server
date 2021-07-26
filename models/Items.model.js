@@ -12,8 +12,8 @@ const ItemSchema = new Schema({
       type: String
     },
     available: {
-      type: String,
-      default: false
+      type: Boolean,
+      default: true
   },
   image: {
     type: String}
