@@ -80,6 +80,7 @@ router.post('/signup', (req, res) => {
 });
  
 
+
 //route to send confirmation mail when signup posted
 const confirmationCode = randomstring.generate(20); 
 const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: http://localhost:3000/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
@@ -122,7 +123,7 @@ router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
         res.status(500).json({error: "Something went wrong, please sign up again."})
   
     })  
-
+        })      
 
 //________________________________________________________________________________________________________
 
