@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+require('./User.model')
 
 const ItemSchema = new Schema({
     username: {
@@ -16,7 +16,12 @@ const ItemSchema = new Schema({
       default: true
   },
   image: {
-    type: String}
+    type: String
+  },
+  userId : { 
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }
 });
 
 const Item = model("Item", ItemSchema);
