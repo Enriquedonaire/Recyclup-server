@@ -1,13 +1,19 @@
+//Libraries:
 const express = require('express')
+const bcrypt = require('bcryptjs');  
+const randomstring = require("randomstring"); //this is a library for the confirmation mail
+const nodemailer = require("nodemailer");  //this one is also for the confirmation mail
+const session = require('express-session')  //library to store the user's session
+const MongoStore = require('connect-mongo');
+const axios = require('axios');
+const express = require('express')
+
+
 const router = express.Router()
-
-
-const bcrypt = require('bcryptjs');
-
 const UserModel = require('../models/User.model');
 
 router.post('/signup', (req, res) => {
-    const {username, name, email, password } = req.body;
+    const {username, name, email, password } = req.body;    //why name here? we dont use it in form
     console.log(name, email, password);
     
 
