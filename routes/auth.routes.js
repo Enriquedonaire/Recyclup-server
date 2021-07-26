@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");  //this one is also for the confirmati
 const session = require('express-session')  //library to store the user's session
 const MongoStore = require('connect-mongo');
 const axios = require('axios');
-const express = require('express')
+
 
 
 const router = express.Router()
@@ -72,7 +72,7 @@ UserModel.findOne({username})
         .catch((err) => {
             if (err.code === 11000) {
             res.status(500).json({
-                errorMessage: 'username or email entered already exists!',
+                errorMessage: 'username or email entered already exists!',//Backlog: set up "Reset Password/username"Maybe!!
                 message: err,
             });
             } 
@@ -86,8 +86,8 @@ UserModel.findOne({username})
     });
 
 
-//________NODEMAILER: When user signs up, she gets a confirmation mail!!!:
 
+//________NODEMAILER below: When user signs up, she gets a confirmation mail!!!:
 //confirmation mail when signup posted
 const confirmationCode = randomstring.generate(20); 
 const message = `Dear new community member, this is to confirm your RecyclUp account. Please click on the following URL to verify your account: http://localhost:3000/confirm/${confirmationCode} See you soon, your Recyclupteam :)`;
@@ -124,7 +124,7 @@ UserModel.create({ username, email, password: hash, confirmationCode, status: "P
 router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
     UserModel.findOneAndUpdate({confirmationCode: req.params.confirmationCode}, {status: 'Active'})
       .then(()=> {
-        res.json({})     //have to create corresponding client side route 
+        res.json({})     //have to create corresponding client side route!!
       })
       .catch((err)=> {
         res.status(500).json({error: "Something went wrong, please sign up again."})
