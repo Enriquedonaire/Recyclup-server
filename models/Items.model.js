@@ -1,19 +1,27 @@
 const { Schema, model } = require("mongoose");
-
+require('./User.model')
 
 const ItemSchema = new Schema({
-  username: {
-    type: String,
-    unique: true
+    username: {
+      type: String,
+    },
+    name: {
+      type : String,
+    },
+    description: {
+      type: String
+    },
+    available: {
+      type: Boolean,
+      default: true
   },
-  name: {type : String},
-  description: {type: String},
-  available: {
-
-    type: Boolean,
-    default: true
+  image: {
+    type: String
   },
-  image: {type: String}
+  userId : { 
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }
 });
 
 const Item = model('Item', ItemSchema);

@@ -1,31 +1,25 @@
 const { Schema, model } = require("mongoose");
 
-
-const userSchema = new Schema({
-  username: {
+// 1. Define your schema
+let UserSchema = new Schema({
+    username: {
+      type: String,
+    },
+    name: {
     type: String,
-    unique: true
   },
-
-  password: {
+    email: {
     type: String,
     required: true
   },
-  email: {
+    passwordHash: {
     type: String,
-    unique: true
-  },
+    required: true
+  }
+})
 
-  status: {
-    enum: ["Active", "Pending confirmation"],
-    default:  "Pending confirmation",
-    type: String
-  },
+// 2. Define your model
+let UserModel = model('user', UserSchema)
 
-  confirmationCode: String
-
-});
-
-const User = model("User", userSchema);
-
-module.exports = User;
+// 3. Export your Model with 'module.exports'
+module.exports = UserModel
