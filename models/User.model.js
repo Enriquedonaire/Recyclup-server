@@ -15,6 +15,13 @@ let UserSchema = new Schema({
     passwordHash: {
     type: String,
     required: true
+  },
+
+  status: {
+   enum: ['Pending confirmation', 'Active'],
+   default: 'Pending confirmation'
+   
+
   }
 })
 
