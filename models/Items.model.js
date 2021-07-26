@@ -8,7 +8,7 @@ const ItemSchema = new Schema({
   },
   name: {type : String},
   description: {type: String},
-  available: {default: true},
+  available: {default: true, type: String},
   image: {type: String}
 });
 
