@@ -8,10 +8,14 @@ const ItemSchema = new Schema({
   },
   name: {type : String},
   description: {type: String},
-  available: {default: true},
+  available: {
+
+    type: Boolean,
+    default: true
+  },
   image: {type: String}
 });
 
-const Item = model(Item, ItemSchema);
+const Item = model('Item', ItemSchema);
 
 module.exports = Item;

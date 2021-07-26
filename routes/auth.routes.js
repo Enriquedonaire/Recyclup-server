@@ -93,6 +93,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+/*
 transporter
   .sendMail({
     //from: '"Upcyclup" <hello.recyclup@gmail.com>',  
@@ -123,7 +124,7 @@ router.get("/auth/confirm/:confirmationCode",(req, res, next) => {
         res.status(500).json({error: "Something went wrong, please sign up again."})
   
     })  
-        })      
+        })        */ 
 
 //________________________________________________________________________________________________________
 

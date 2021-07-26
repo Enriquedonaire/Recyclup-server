@@ -1,4 +1,4 @@
-/*const router = require("express").Router();
+const router = require("express").Router();
 
 
 
@@ -21,14 +21,13 @@ router.get("/", (req, res, next) => {            //show our landing page with 10
     next(err);
   })
 
-  /*
+  
     res.render('auth/main.hbs', {general, programming, knock, jokes, myUserId, randomJoke, jokeProgramming, jokeGeneral, jokeKnock})
   })
- 
-});   
+ ;   
 
 
-*/
+
 
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
