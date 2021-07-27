@@ -20,6 +20,9 @@ const isLoggedIn = (req, res, next) => {
 
 router.get('/profile', (req, res, next) => {
   let myUserId = req.session.loggedInUser._id;
+
+  console.log(myUserId,'user id fetch ?')
+
   UserModel.findById(myUserId)
   .populate("itemsId")
   .then((user) => {
@@ -30,9 +33,6 @@ router.get('/profile', (req, res, next) => {
 })
 
 });
-
-
-
 
 
 module.exports = router;

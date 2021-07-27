@@ -16,10 +16,18 @@ let UserSchema = new Schema({
     type: String,
     required: true
   },
-    itemsId:{
-      type: Schema.Types.ObjectId,
-      ref:'Item' 
-  }
+  image: {
+  type: String
+},
+itemsId: {
+  type: Schema.Types.ObjectId,
+  ref: 'Items'
+}
+// status: {
+//   enum: ['Pending confirmation', 'Active'],
+//   default: 'Pending confirmation',
+//   type: String
+//  }
 })
 
 // 2. Define your model
