@@ -1,15 +1,12 @@
 const { Schema, model } = require("mongoose");
-
 require('./User.model')
-
-// create user id parameter whi is the user from item _id type:user.schema.objectId, ref: user._id
 
 const ItemSchema = new Schema({
   username: {
     type: String,
   },
   name: {
-    type: String,
+    type : String,
   },
   description: {
     type: String
@@ -21,11 +18,15 @@ const ItemSchema = new Schema({
   image: {
     type: String
   },
-  userId: {
+  userId : { 
     type: Schema.Types.ObjectId,
     ref: 'user'
-  }
-
+  },
+  status: {
+    enum: ['Pending confirmation', 'Active'],
+    default: 'Pending confirmation',
+    type: String
+   }
 });
 
 const Item = model("Item", ItemSchema);

@@ -8,7 +8,7 @@ const ItemModel = require('../models/Items.model')
 router.get('/items', (req, res) => {
      ItemModel.find()
           .then((items) => {
-               res.status(200).json(items)    //instead of render('someHbs'), since we dont have views here to render
+               res.status(200).json(items)    
           })
           .catch((err) => {
                res.status(500).json({
@@ -18,13 +18,13 @@ router.get('/items', (req, res) => {
           })         
 })
 
-// will handle all POST requests to http:localhost:5005/api/create
+// will handle all POST requests to http:localhost:5005/api/create CHECKOUT
 
 router.post('/create', (req, res) => {  
      const {username, name, description, available, image} = req.body;
      console.log(req.body)
-     let id = req.session.loggedInUser._id     
-     ItemModel.create({username: username, name: name, description: description, available: available, image: image, userId:id })
+     let id = req.session.loggedInUser._id
+     ItemModel.create({username: username, name: name, description: description, available: available, image: image, userId:id})
           .then((response) => {
                res.status(200).json(response)
           })
@@ -69,8 +69,8 @@ router.delete('/items/:id', (req, res) => {
 // will handle all PATCH requests to http:localhost:5005/api/items/:id
 router.patch('/items/:id', (req, res) => {
      let id = req.params.id
-     const {name, description, completed} = req.body;
-     ItemModel.findByIdAndUpdate(id, {$set: {name: name, description: description, completed: completed}}, {new: true})
+     const {username, name, description, available, image} = req.body;
+     ItemModel.findByIdAndUpdate(id, {$set: {username: username, name: name, description: description, available: available, image: image}}, {new: true})
                .then((response) => {
                res.status(200).json(response)
           })

@@ -41,7 +41,7 @@ app.use("/api", authRoutes);
 
 const profileRoutes = require('./routes/profile.routes');
 app.use('/api', profileRoutes);
-//ALL SERVER SIDE ROUTES START WIRT/API
+//ALL SERVER SIDE ROUTES START WITH/API
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
