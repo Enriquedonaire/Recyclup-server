@@ -11,6 +11,8 @@ const express = require("express");
 
 const app = express();
 
+
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 const session = require('express-session');
@@ -39,6 +41,19 @@ app.use('/api', itemRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/api", authRoutes);
 
+const isLoggedIn = (req, res, next) => {  
+  if (req.session.loggedInUser) {
+      next()
+  }
+  else {
+      res.status(401).json({
+          message: 'Unauthorized user',
+          code: 401,
+      })
+  };
+  };
+  const profileRoutes = require('./routes/profile.routes');
+  app.use('/api', profileRoutes);
 //ALL SERVER SIDE ROUTES START WIRT/API
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

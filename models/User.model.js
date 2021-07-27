@@ -1,25 +1,25 @@
 const { Schema, model } = require("mongoose");
-
+require('./Items.model')
 // 1. Define your schema
 let UserSchema = new Schema({
-  username: {
+    username: {
+      type: String,
+    },
+    name: {
     type: String,
   },
-  name: {
-  type: String,
+    email: {
+    type: String,
+    required: true
   },
-  email: {
-  type: String,
-  required: true
+    passwordHash: {
+    type: String,
+    required: true
   },
-  passwordHash: {
-  type: String,
-  required: true
-  },
-  image: {
-  type: String
-}
-
+    itemsId:{
+      type: Schema.Types.ObjectId,
+      ref:'Item' 
+  }
 })
 
 // 2. Define your model
