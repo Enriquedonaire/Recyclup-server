@@ -22,9 +22,12 @@ let UserSchema = new Schema({
 itemsId: {
   type: Schema.Types.ObjectId,
   ref: 'Items'
-  
 }
-
+// status: {
+//   enum: ['Pending confirmation', 'Active'],
+//   default: 'Pending confirmation',
+//   type: String
+//  }
 })
 
 // 2. Define your model

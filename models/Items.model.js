@@ -22,11 +22,7 @@ const ItemSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
-  status: {
-    enum: ['Pending confirmation', 'Active'],
-    default: 'Pending confirmation',
-    type: String
-   }
+  position : [Number]
 });
 
 const Item = model("Item", ItemSchema);
