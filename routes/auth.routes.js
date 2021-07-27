@@ -35,7 +35,7 @@ router.post('/signup', (req, res) => {
         })
     });
     
-    router.post('/signin', (req, res) => {
+router.post('/signin', (req, res) => {
         const {email, password } = req.body;
 
         UserModel.findOne({email})
@@ -70,8 +70,10 @@ router.post('/signup', (req, res) => {
         });
     
     });
+
     
-    router.post('/logout', (req, res) => {
+    
+router.post('/logout', (req, res) => {
         req.session.destroy();
         res.status(204).json({});
     })
@@ -92,5 +94,19 @@ router.post('/signup', (req, res) => {
     router.get("/user", isLoggedIn, (req, res, next) => {
     res.status(200).json(req.session.loggedInUser);
 });
+
+router.get('/profile/:id', isLoggedIn, (req, res, next) => {
+    let myUserId = req.session.loggedInUser._id;
+    UserModel.findById(myUserId)
+    //.populate("favStuff")
+    .then((user) => {
+    res.render('/profile', {user, myUserId});
+})
+    .catch((err) => {
+    next(err);
+    })
+});
+
+
 
 module.exports = router;
