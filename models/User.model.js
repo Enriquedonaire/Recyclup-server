@@ -4,6 +4,7 @@ const { Schema, model } = require("mongoose");
 let UserSchema = new Schema({
     username: {
       type: String,
+      unique: true
     },
     name: {
     type: String,
@@ -19,8 +20,9 @@ let UserSchema = new Schema({
 
   status: {
    enum: ['Pending confirmation', 'Active'],
-   default: 'Pending confirmation'
-   
+   default: 'Pending confirmation',
+   type: String
+  
 
   }
 })
