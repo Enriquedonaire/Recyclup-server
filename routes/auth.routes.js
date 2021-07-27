@@ -14,8 +14,7 @@ router.post('/signup', (req, res) => {
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(password, salt);
         UserModel.create({username:username, name:name, email: email, passwordHash: hash})
-        .then((user) => {
-            
+        .then((user) => {            
             user.passwordHash = "***";
             res.status(200).json(user);
         })

@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+require('./Items.model')
 
 // 1. Define your schema
 let UserSchema = new Schema({
@@ -18,6 +19,10 @@ let UserSchema = new Schema({
   },
   image: {
   type: String
+},
+itemsId: {
+  type: Schema.Types.ObjectId,
+  ref: 'Items'
 }
 
 })

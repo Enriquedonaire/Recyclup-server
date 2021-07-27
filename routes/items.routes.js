@@ -23,8 +23,8 @@ router.get('/items', (req, res) => {
 router.post('/create', (req, res) => {  
      const {username, name, description, available, image} = req.body;
      console.log(req.body)
-     let id = req.session.loggedInUser._id
-     ItemModel.create({username: username, name: name, description: description, available: false, image: image, userId:id })
+     let id = req.session.loggedInUser._id     
+     ItemModel.create({username: username, name: name, description: description, available: available, image: image, userId:id })
           .then((response) => {
                res.status(200).json(response)
           })
@@ -40,6 +40,7 @@ router.post('/create', (req, res) => {
 //PS: Don't type :itemId , it's something dynamic, 
 router.get('/items/:itemId', (req, res) => {
      ItemModel.findById(req.params.itemId)
+     .populate('userId')
      .then((response) => {
           res.status(200).json(response)
      })
