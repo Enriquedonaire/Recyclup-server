@@ -7,13 +7,13 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/User.model');
 
 router.post('/signup', (req, res) => {
-    const {name, email, password } = req.body;
-    console.log(name, email, password);
+    const {username, name, email, password } = req.body;
+    console.log(username, name, email, password);
     
 
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(password, salt);
-        UserModel.create({username: name, email: email, passwordHash: hash})
+        UserModel.create({username:username, name:name, email: email, passwordHash: hash})
         .then((user) => {
             
             user.passwordHash = "***";
@@ -35,7 +35,7 @@ router.post('/signup', (req, res) => {
         })
     });
     
-router.post('/signin', (req, res) => {
+    router.post('/signin', (req, res) => {
         const {email, password } = req.body;
 
         UserModel.findOne({email})
@@ -70,10 +70,8 @@ router.post('/signin', (req, res) => {
         });
     
     });
-
     
-    
-router.post('/logout', (req, res) => {
+    router.post('/logout', (req, res) => {
         req.session.destroy();
         res.status(204).json({});
     })
@@ -94,19 +92,5 @@ router.post('/logout', (req, res) => {
     router.get("/user", isLoggedIn, (req, res, next) => {
     res.status(200).json(req.session.loggedInUser);
 });
-
-router.get('/profile/:id', isLoggedIn, (req, res, next) => {
-    let myUserId = req.session.loggedInUser._id;
-    UserModel.findById(myUserId)
-    //.populate("favStuff")
-    .then((user) => {
-    res.render('/profile', {user, myUserId});
-})
-    .catch((err) => {
-    next(err);
-    })
-});
-
-
 
 module.exports = router;
