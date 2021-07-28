@@ -1,14 +1,10 @@
-
-//I COMMENTED THE FILE OUT BECAUSE I GET 1 ERROR AND DONT KNOW WHY
-
-/*
 require('../db');
 let ItemModel = require('../models/Items.model');
 const mongoose = require('mongoose');
 
 
 //___________Creating dummy seed items in db_____________
-
+//BAAAAAAD PRACTICE- delete after seeding!!
 
 ItemModel.create([
   {
@@ -153,7 +149,6 @@ ItemModel.create([
     "image": "insert Link20 here",
     "available": true,
     "username": "username20"
-  }
 
-  
-*/
+
+  }])
