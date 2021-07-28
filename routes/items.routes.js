@@ -69,8 +69,8 @@ router.delete('/items/:id', (req, res) => {
 // will handle all PATCH requests to http:localhost:5005/api/items/:id
 router.patch('/items/:id', (req, res) => {
      let id = req.params.id
-     const {username, name, description, available, image} = req.body;
-     ItemModel.findByIdAndUpdate(id, {$set: {username: username, name: name, description: description, available: available, image: image}}, {new: true})
+     const {username, name, description,position, available, image} = req.body;
+     ItemModel.findByIdAndUpdate(id, {$set: {username: username, name: name, description: description, position: position, available: available, image: image}}, {new: true})
                .then((response) => {
                res.status(200).json(response)
           })
