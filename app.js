@@ -41,6 +41,10 @@ app.use("/api", authRoutes);
 
 const profileRoutes = require('./routes/profile.routes');
 app.use('/api', profileRoutes);
+
+const stripeRoutes = require('./routes/stripe.routes')
+app.use('/api', stripeRoutes)
+
 //ALL SERVER SIDE ROUTES START WITH/API
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
