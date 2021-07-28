@@ -92,17 +92,7 @@ router.post('/logout', (req, res) => {
     res.status(200).json(req.session.loggedInUser);
 });
 
-router.get('/profile/:id', isLoggedIn, (req, res, next) => {
-    let myUserId = req.session.loggedInUser._id;
-    UserModel.findById(myUserId)
-    //.populate("favStuff")
-    .then((user) => {
-    res.render('/profile', {user, myUserId});
-})
-    .catch((err) => {
-    next(err);
-    })
-});
+
 
 
 
