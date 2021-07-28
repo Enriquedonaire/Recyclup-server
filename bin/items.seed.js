@@ -1,6 +1,7 @@
 require('../db');
 let ItemModel = require('../models/Items.model');
 const mongoose = require('mongoose');
+import burger from 'https://ais.kochbar.de/vms/5ced0e371d90da128862f2c2/so-geht-der-klassischer-burger.jpg'
 
 
 //___________Creating dummy seed items in db_____________
@@ -10,9 +11,11 @@ ItemModel.create([
   {
     "name": "item1",
     "description": "description1",
-    "image": "insert Link1 here",
+    "image": "https://ais.kochbar.de/vms/5ced0e371d90da128862f2c2/so-geht-der-klassischer-burger.jpg",
     "available": "true",
-    "username": "username1"
+    "username": "username1",
+    "userId": "1",
+    "position": [12, 34]
 
   },
   {
@@ -152,3 +155,13 @@ ItemModel.create([
 
 
   }])
+
+
+  then(() => {
+    console.log('Posts seeded')
+    mongoose.connection.close()
+  })
+  .catch((err) => {
+    console.log('ERROR: ', err)
+    mongoose.connection.close()
+  })
