@@ -1,7 +1,7 @@
 const express = require('express')            //CHANGE THIS TO ITEM-ROUTES!!
 const router = express.Router()
 const ItemModel = require('../models/Items.model')
-
+const UserModel = require('../models/User.model')
 // NOTE: All your API routes will start from /api 
 
 // will handle all GET requests to http:localhost:5005/api/items.
@@ -26,14 +26,20 @@ router.post('/create', (req, res) => {
      let id = req.session.loggedInUser._id
      ItemModel.create({username: username, name: name, description: description, available: available, image: image, position: position, userId:id})
           .then((response) => {
-               res.status(200).json(response)
-          })
-          .catch((err) => {
-               res.status(500).json({
-                    error: 'Something went wrong',
-                    message: err
+               UserModel.findByIdAndUpdate(id, {$push: {itemsId: response._id}})
+               .then(() => {
+                    res.status(200).json(response)
                })
-          })  
+               .catch((err) => {
+                    res.status(500).json({
+                         error: 'Something went wrong',
+                         message: err
+                    })
+               })  
+
+          
+          })
+          
 })
 
 // will handle all GET requests to http:localhost:5005/api/items/:itemId
