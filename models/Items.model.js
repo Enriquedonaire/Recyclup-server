@@ -23,6 +23,7 @@ const ItemSchema = new Schema({
     ref: 'user'
   },
   position : [Number]
+
 });
 
 const Item = model("Item", ItemSchema);
