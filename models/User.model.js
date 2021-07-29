@@ -18,11 +18,11 @@ let UserSchema = new Schema({
   },
   image: {
   type: String
-},
-itemsId: {
-  type: Schema.Types.ObjectId,
-  ref: 'Items'
-}
+  },
+  itemsId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Items'                   //why ItemSsss?
+  }
 // status: {
 //   enum: ['Pending confirmation', 'Active'],
 //   default: 'Pending confirmation',
