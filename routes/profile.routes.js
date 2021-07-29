@@ -37,7 +37,7 @@ router.get('/profile', (req, res, next) => {
 router.get('/profile/:id', isLoggedIn, (req, res, next) => {
   let myUserId = req.session.loggedInUser._id;
   UserModel.findById(myUserId)
-  
+  .populate('itemsId')
   .then((user) => {
   res.status(200).json(user);
 })
