@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 require('./Items.model')
-// 1. Define your schema
+
 let UserSchema = new Schema({
     username: {
       type: String,
@@ -30,8 +30,7 @@ itemsId: {
 //  }
 })
 
-// 2. Define your model
 let UserModel = model('user', UserSchema)
 
-// 3. Export your Model with 'module.exports'
+
 module.exports = UserModel
