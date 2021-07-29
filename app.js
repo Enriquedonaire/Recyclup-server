@@ -36,6 +36,9 @@ app.use(session({
 const allRoutes = require("./routes");
 app.use("/api", allRoutes);
 
+const fileUploadRoutes = require("./routes/file-upload.routes")
+app.use("/api", fileUploadRoutes);
+
 const itemRoutes = require('./routes/items.routes');
 app.use('/api', itemRoutes);
 
@@ -44,6 +47,11 @@ app.use("/api", authRoutes);
 
 const profileRoutes = require('./routes/profile.routes');
 app.use('/api', profileRoutes);
+
+
+//const fileUploadRoutes = require("./routes/file-upload.routes")
+//app.use("/api", fileUploadRoutes);
+
 //ALL SERVER SIDE ROUTES START WITH/API
 
 //app.use((req, res, next) => {
